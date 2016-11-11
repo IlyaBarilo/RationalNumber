@@ -100,6 +100,11 @@ namespace RationalNumber
                 return (Nod(in_up, in_up, in_down));
             }
 
+            /// <summary>
+            /// Сложение дробных чисел
+            /// </summary>
+            /// <param name="in_r">дробное число</param>
+            /// <returns>результат сложения</returns>
             public Rational Add(Rational in_r)
             {
                 Rational r = new Rational (this.up, this.down);
@@ -133,13 +138,22 @@ namespace RationalNumber
                 return r;
             }
 
+            /// <summary>
+            /// Переопределенный метод отображения дробного числа
+            /// </summary>
+            /// <returns></returns>
             public override string ToString()
             {
                 return 
                     (this.up.ToString() + "/" + this.down.ToString());
             }
-        }
 
+        } //class Rational
+
+        /// <summary>
+        /// Класс тестирования дробных чисел
+        /// </summary>
+        /// <param name="args">аргументы из командной строки</param>
         static void Main(string[] args)
         {
 
@@ -149,10 +163,10 @@ namespace RationalNumber
             Console.Write(r1 + "+" + r2 + "=");
 
             r1 = r1.Add(r2);
-
+         
             Console.WriteLine(r1.ToString ());
 
-
+            //Пауза
             Console.ReadLine();
 
         }
