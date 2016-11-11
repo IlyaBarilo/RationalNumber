@@ -116,27 +116,6 @@ namespace RationalNumber
                 down = down / x;
             }
 
-            /// <summary>
-            /// Сложение дробных чисел
-            /// </summary>
-            /// <param name="in_r">дробное число</param>
-            /// <returns>результат сложения</returns>
-            public Rational Add(Rational in_r)
-            {
-                return (new Rational(this.up * in_r.down + in_r.up * this.down, this.down * in_r.down));
-            }
-
-            public Rational Sub(Rational in_r)
-            {
-                return (new Rational(this.up * in_r.down - in_r.up * this.down, this.down * in_r.down));
-            }
-
-            public Rational Multiple(Rational in_r)
-            {
-                return (new Rational(this.up * in_r.up, this.down * in_r.down));
-            }
-
-
             public int GetInteger()
             {
                 int x = up / down;
@@ -151,6 +130,46 @@ namespace RationalNumber
             public int GetDown()
             {
                 return down;
+            }
+
+            /// <summary>
+            /// Сложение дробных чисел
+            /// </summary>
+            /// <param name="in_r">число</param>
+            /// <returns>результат</returns>
+            public Rational Add(Rational in_r)
+            {
+                return (new Rational(this.up * in_r.down + in_r.up * this.down, this.down * in_r.down));
+            }
+
+            /// <summary>
+            /// Вычитание
+            /// </summary>
+            /// <param name="in_r">число</param>
+            /// <returns>результат</returns>
+            public Rational Sub(Rational in_r)
+            {
+                return (new Rational(this.up * in_r.down - in_r.up * this.down, this.down * in_r.down));
+            }
+
+            /// <summary>
+            /// Умножение
+            /// </summary>
+            /// <param name="in_r">число</param>
+            /// <returns>результат</returns>
+            public Rational Multiple(Rational in_r)
+            {
+                return (new Rational(this.up * in_r.up, this.down * in_r.down));
+            }
+
+            /// <summary>
+            /// Деление
+            /// </summary>
+            /// <param name="in_r">число</param>
+            /// <returns>результат</returns>
+            public Rational Div(Rational in_r)
+            {
+                return (new Rational(this.up * in_r.down, this.down * in_r.up));
             }
 
             /// <summary>
@@ -175,7 +194,7 @@ namespace RationalNumber
             }
 
             /// <summary>
-            /// Опретаор умножения
+            /// Оператор умножения
             /// </summary>
             /// <param name="r1">число 1</param>
             /// <param name="r2">число 2</param>
@@ -185,6 +204,16 @@ namespace RationalNumber
                 return (r1.Multiple(r2));
             }
 
+            /// <summary>
+            /// Оператор деления
+            /// </summary>
+            /// <param name="r1">число 1</param>
+            /// <param name="r2">число 2</param>
+            /// <returns>результат</returns>
+            public static Rational operator /(Rational r1, Rational r2)
+            {
+                return (r1.Div(r2));
+            }
 
             /// <summary>
             /// Переопределенный метод отображения дробного числа
@@ -244,7 +273,7 @@ namespace RationalNumber
             Rational r1 = new Rational(1, 3);
             Rational r2 = new Rational(10, 170);
 
-            Console.Write(r1 + "+" + r2 + "=");
+            Console.Write(r1 + " + " + r2 + " = ");
 
             r1 = r1.Add(r2);
 
@@ -253,17 +282,19 @@ namespace RationalNumber
             r1.Set(1, 5);
             r2.Set(1, 10);
 
-            Console.WriteLine(r1 + "+" + r2 + "=" + (r1 + r2));
+            Console.WriteLine(r1 + " + " + r2 + " = " + (r1 + r2));
 
             r1.Set(1, 5);
             r2.Set(1, 10);
 
-            Console.WriteLine(r1 + "-" + r2 + "=" + (r1 - r2));
+            Console.WriteLine(r1 + " - " + r2 + " = " + (r1 - r2));
 
             r1.Set(1, 2);
             r2.Set(1, 2);
 
-            Console.WriteLine(r1 + "*" + r2 + "=" + (r1 * r2));
+            Console.WriteLine(r1 + " * " + r2 + " = " + (r1 * r2));
+
+            Console.WriteLine(r1 + " / " + r2 + " = " + (r1 / r2));
 
             //Пауза
             Console.WriteLine("Press any key...");
