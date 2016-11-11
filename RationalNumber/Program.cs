@@ -8,17 +8,34 @@ namespace RationalNumber
 {
     class Program
     {
+        /// <summary>
+        /// Класс расчета дробных (рациональных) чисел
+        /// </summary>
         private class Rational
         {
-            int up=0, down=1;
+            /// <summary>
+            /// up - числитель
+            /// </summary>
+            int up = 0;
+            /// <summary>
+            /// down - знаменатель
+            /// </summary>
+            int down =1;
 
+            /// <summary>
+            /// Констркутор по умолчанию формирующий дробь 0/1
+            /// </summary>
             public Rational()
             {
                 up = 0;
                 down = 1;
             }
 
-
+            /// <summary>
+            /// Конструктор задающий числитель и знаменатель
+            /// </summary>
+            /// <param name="in_up"></param>
+            /// <param name="in_down"></param>
             public Rational(int in_up, int in_down)
             {
                 if (in_down == 0) throw (new Exception("init down=0"));
