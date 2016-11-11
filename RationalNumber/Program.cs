@@ -137,6 +137,22 @@ namespace RationalNumber
 
                 return r;
             }
+           
+            public int GetInteger()
+            {
+                int x = up / down;
+                return x;
+            }
+
+            public int GetUp()
+            {
+                return up - GetInteger()*down;
+            }
+
+            public int GetDown()
+            {
+                return down;
+            }
 
             /// <summary>
             /// Переопределенный метод отображения дробного числа
@@ -144,8 +160,26 @@ namespace RationalNumber
             /// <returns></returns>
             public override string ToString()
             {
-                return 
-                    (this.up.ToString() + "/" + this.down.ToString());
+                //Строка со значением
+                string s = "";
+
+                //Если есть целое значений и есть правильная дробь
+                if ((this.GetInteger() != 0) && (this.GetInteger() * down < up)) {
+                    s = GetInteger() + " " + (up - GetInteger() * down) +
+"/" + down;
+                }
+
+                //Если есть целое значение и оно равно всей дроби
+                else if ((this.GetInteger() != 0) && (this.GetInteger() * down == up))
+                {
+                    s = GetInteger() + "";
+                }
+
+                // Вывод обычной дроби
+                else
+                { s = up + "/" + down; }
+
+                return   (s);
             }
 
         } //class Rational
