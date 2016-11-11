@@ -23,7 +23,7 @@ namespace RationalNumber
             int down =1;
 
             /// <summary>
-            /// Констркутор по умолчанию формирующий дробь 0/1
+            /// Конструктор по умолчанию формирующий дробь 0/1
             /// </summary>
             public Rational()
             {
