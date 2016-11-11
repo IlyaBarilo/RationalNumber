@@ -42,6 +42,9 @@ namespace RationalNumber
 
                 up = in_up;
                 down = in_down;
+
+                //Использование НОД для дроби
+                UseNod();
             }
 
             /// <summary>
@@ -55,6 +58,9 @@ namespace RationalNumber
 
                 up = in_up;
                 down = in_down;
+
+                //Использование НОД для дроби
+                UseNod();
             }
 
             /// <summary>
@@ -117,20 +123,7 @@ namespace RationalNumber
             /// <returns>результат сложения</returns>
             public Rational Add(Rational in_r)
             {
-                Rational r = new Rational(this.up, this.down);
-
-                int x, y;
-
-                x = this.up * in_r.down;
-                y = this.down * in_r.down;
-
-                x = x + in_r.up * this.down;
-
-                r.Set(x, y);
-
-                r.UseNod();
-
-                return r;
+                return (new Rational(this.up * in_r.down + in_r.up * this.down, this.down * in_r.down));
             }
 
             public int GetInteger()
