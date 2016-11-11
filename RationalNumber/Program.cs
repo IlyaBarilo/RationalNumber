@@ -44,7 +44,11 @@ namespace RationalNumber
                 down = in_down;
             }
 
-
+            /// <summary>
+            /// Установка значений дроби
+            /// </summary>
+            /// <param name="in_up">Числитель</param>
+            /// <param name="in_down">Знаменатель</param>
             public void Set(int in_up, int in_down)
             {
                 if (in_down == 0) throw (new Exception("set down=0"));
@@ -53,6 +57,12 @@ namespace RationalNumber
                 down = in_down;
             }
 
+            /// <summary>
+            /// Установка значений дроби
+            /// </summary>
+            /// <param name="in_number">целая часть</param>
+            /// <param name="in_up">числитель</param>
+            /// <param name="in_down">знаменатель</param>
             public void Set(int in_number, int in_up, int in_down)
             {
                 if (in_down == 0) throw (new Exception("set down=0"));
