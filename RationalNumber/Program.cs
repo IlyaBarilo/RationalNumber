@@ -126,6 +126,17 @@ namespace RationalNumber
                 return (new Rational(this.up * in_r.down + in_r.up * this.down, this.down * in_r.down));
             }
 
+            public Rational Sub(Rational in_r)
+            {
+                return (new Rational(this.up * in_r.down - in_r.up * this.down, this.down * in_r.down));
+            }
+
+            public Rational Multiple(Rational in_r)
+            {
+                return (new Rational(this.up * in_r.up, this.down * in_r.down));
+            }
+
+
             public int GetInteger()
             {
                 int x = up / down;
@@ -145,11 +156,33 @@ namespace RationalNumber
             /// <summary>
             /// Оператор сложения
             /// </summary>
-            /// <param name="x">число 1</param>
-            /// <param name="y">число 2</param>
+            /// <param name="r1">число 1</param>
+            /// <param name="r2">число 2</param>
             /// <returns>результат</returns>
-            public static Rational operator +(Rational x, Rational y)
-            { return (x.Add(y));
+            public static Rational operator +(Rational r1, Rational r2)
+            { return (r1.Add(r2));
+            }
+
+            /// <summary>
+            /// Оператор вычитания
+            /// </summary>
+            /// <param name="r1">число 1</param>
+            /// <param name="r2">число 2</param>
+            /// <returns>результат</returns>
+            public static Rational operator -(Rational r1, Rational r2)
+            {
+                return (r1.Sub(r2));
+            }
+
+            /// <summary>
+            /// Опретаор умножения
+            /// </summary>
+            /// <param name="r1">число 1</param>
+            /// <param name="r2">число 2</param>
+            /// <returns>результат</returns>
+            public static Rational operator *(Rational r1, Rational r2)
+            {
+                return (r1.Multiple(r2));
             }
 
 
@@ -162,8 +195,14 @@ namespace RationalNumber
                 //Строка со значением
                 string s = "";
 
+                //Если числитель = 0
+                if (up == 0)
+                {
+                    s = "0";
+                }
+
                 //Если есть целое значений и есть правильная дробь
-                if ((this.GetInteger() != 0) && (this.GetInteger() * down < up)) {
+                else if ((this.GetInteger() != 0) && (this.GetInteger() * down < up)) {
                     s = GetInteger() + " " + (up - GetInteger() * down) +
 "/" + down;
                 }
@@ -199,7 +238,9 @@ namespace RationalNumber
             { Console.WriteLine("Exception: " + e.Message.ToString()); }
 
             Console.WriteLine("Test class:");
-            
+
+            Console.WriteLine("Empty value = " + (new Rational()));
+
             Rational r1 = new Rational(1, 3);
             Rational r2 = new Rational(10, 170);
 
@@ -213,6 +254,16 @@ namespace RationalNumber
             r2.Set(1, 10);
 
             Console.WriteLine(r1 + "+" + r2 + "=" + (r1 + r2));
+
+            r1.Set(1, 5);
+            r2.Set(1, 10);
+
+            Console.WriteLine(r1 + "-" + r2 + "=" + (r1 - r2));
+
+            r1.Set(1, 2);
+            r2.Set(1, 2);
+
+            Console.WriteLine(r1 + "*" + r2 + "=" + (r1 * r2));
 
             //Пауза
             Console.WriteLine("Press any key...");
