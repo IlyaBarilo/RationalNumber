@@ -20,7 +20,7 @@ namespace RationalNumber
             /// <summary>
             /// down - знаменатель
             /// </summary>
-            int down =1;
+            int down = 1;
 
             /// <summary>
             /// Конструктор по умолчанию формирующий дробь 0/1
@@ -79,13 +79,13 @@ namespace RationalNumber
             /// <param name="in_down">знаменатель</param>
             /// <returns>наименьший общий делитель</returns>
             private int Nod(int in_up1, int in_up2, int in_down)
-            { 
+            {
                 int result = 1;
                 for (int i = 1; i <= in_down; i++)
-                    if ((in_down>=i) && (in_down % i == 0))
+                    if ((in_down >= i) && (in_down % i == 0))
                         if ((in_up1 >= i) && (in_up1 % i == 0))
                             if ((in_up2 >= i) && (in_up2 % i == 0))
-                                { result = i; }
+                            { result = i; }
                 return (result);
             }
 
@@ -101,43 +101,38 @@ namespace RationalNumber
             }
 
             /// <summary>
+            /// Использование функции НОД для дроби
+            /// </summary>
+            public void UseNod()
+            {
+                int x = Nod(up, down);
+                up = up / x;
+                down = down / x;
+            }
+
+            /// <summary>
             /// Сложение дробных чисел
             /// </summary>
             /// <param name="in_r">дробное число</param>
             /// <returns>результат сложения</returns>
             public Rational Add(Rational in_r)
             {
-                Rational r = new Rational (this.up, this.down);
+                Rational r = new Rational(this.up, this.down);
 
-                int x1, y1;
-                x1 = in_r.up * down;
-                y1 = in_r.down * down;
+                int x, y;
 
-                int x2, y2;
-                x2 = up * in_r.down;
-                y2 = down * in_r.down;
+                x = this.up * in_r.down;
+                y = this.down * in_r.down;
 
-                int nod = Nod(x1, x2, y1);
+                x = x + in_r.up * this.down;
 
-                x1 = x1 / nod;
-                y1 = y1 / nod;
-                x2 = x2 / nod;
-                y2 = y2 / nod;
+                r.Set(x, y);
 
-                x1 = x1 + x2;
-
-                nod = Nod(x1, y1);
-
-                x1 = x1 / nod;
-                y1 = y1 / nod;
-                x2 = x2 / nod;
-                y2 = y2 / nod;
-
-                r.Set(x1, y1);
+                r.UseNod();
 
                 return r;
             }
-           
+
             public int GetInteger()
             {
                 int x = up / down;
@@ -146,13 +141,24 @@ namespace RationalNumber
 
             public int GetUp()
             {
-                return up - GetInteger()*down;
+                return up - GetInteger() * down;
             }
 
             public int GetDown()
             {
                 return down;
             }
+
+            /// <summary>
+            /// Оператор сложения
+            /// </summary>
+            /// <param name="x">число 1</param>
+            /// <param name="y">число 2</param>
+            /// <returns>результат</returns>
+            public static Rational operator +(Rational x, Rational y)
+            { return (x.Add(y));
+            }
+
 
             /// <summary>
             /// Переопределенный метод отображения дробного числа
@@ -191,16 +197,32 @@ namespace RationalNumber
         static void Main(string[] args)
         {
 
-            Rational r1 = new Rational(1, 2);
-            Rational r2 = new Rational(1, 2);
+            //Проверка работы исключений в классе
+            try
+            {
+                Rational tempr = new Rational(1, 0);
+            }
+            catch (Exception e)
+            { Console.WriteLine("Exception: " + e.Message.ToString()); }
+
+            Console.WriteLine("Test class:");
+            
+            Rational r1 = new Rational(1, 3);
+            Rational r2 = new Rational(10, 170);
 
             Console.Write(r1 + "+" + r2 + "=");
 
             r1 = r1.Add(r2);
-         
+
             Console.WriteLine(r1.ToString ());
 
+            r1.Set(1, 5);
+            r2.Set(1, 10);
+
+            Console.WriteLine(r1 + "+" + r2 + "=" + (r1 + r2));
+
             //Пауза
+            Console.WriteLine("Press any key...");
             Console.ReadLine();
 
         }
