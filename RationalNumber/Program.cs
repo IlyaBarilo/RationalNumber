@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace RationalNumber
 {
@@ -48,6 +49,16 @@ namespace RationalNumber
             }
 
             /// <summary>
+            /// Конструктор задающий числитель и знаменатель
+            /// </summary>
+            /// <param name="in_up"></param>
+            /// <param name="in_down"></param>
+            public Rational(string in_s)
+            {
+                Set(in_s);
+            }
+
+            /// <summary>
             /// Установка значений дроби
             /// </summary>
             /// <param name="in_up">Числитель</param>
@@ -75,6 +86,50 @@ namespace RationalNumber
 
                 up = in_up + in_down * in_number;
                 down = in_down;
+
+            }
+
+            /// <summary>
+            /// Установка значений дроби используя строку с ее описанием
+            /// </summary>
+            /// <param name="in_s">строка с описанием дроби</param>
+            /// <remarks>Примеры входных значений: "1", "1/2", "1 1/2"</remarks> 
+            public void Set(string in_s)
+            {
+
+                // 1
+                if (Regex.IsMatch(in_s, @"^\d+$"))
+                {
+                    up = int.Parse(in_s);
+                }
+
+                // 1/2
+                else
+                {
+                    Match tempregs = Regex.Match(in_s, @"^\s*(?<up>\d+)\/(?<down>\d+)\s*$");
+
+                    if (tempregs.Success == true)
+                    {
+                        Set(int.Parse(tempregs.Groups["up"].Value), int.Parse(tempregs.Groups["down"].Value));
+                    }
+                    
+                    // 1 1/2
+                    else
+                    {
+                        tempregs = Regex.Match(in_s, @"^\s*(?<number>\d+)\s+(?<up>\d+)\/(?<down>\d+)\s*$");
+
+                        if (tempregs.Success == true)
+                        {
+                            Set(int.Parse(tempregs.Groups["number"].Value), int.Parse(tempregs.Groups["up"].Value), int.Parse(tempregs.Groups["down"].Value));
+                        }
+
+                        // Error
+                        else throw (new Exception("Set with parse string"));
+                    }
+                }
+
+                //Использование НОД для дроби
+                UseNod();
             }
 
             /// <summary>
@@ -116,17 +171,29 @@ namespace RationalNumber
                 down = down / x;
             }
 
+            /// <summary>
+            /// Часть дроби: целая
+            /// </summary>
+            /// <returns>целая</returns>
             public int GetInteger()
             {
                 int x = up / down;
                 return x;
             }
 
+            /// <summary>
+            /// Часть дроби: числитель
+            /// </summary>
+            /// <returns>числитель</returns>
             public int GetUp()
             {
                 return up - GetInteger() * down;
             }
 
+            /// <summary>
+            /// Часть дроби: знаменатель
+            /// </summary>
+            /// <returns>знаменатель</returns>
             public int GetDown()
             {
                 return down;
@@ -295,6 +362,11 @@ namespace RationalNumber
             Console.WriteLine(r1 + " * " + r2 + " = " + (r1 * r2));
 
             Console.WriteLine(r1 + " / " + r2 + " = " + (r1 / r2));
+
+            r1.Set("1 1/5");
+            r2.Set("10/24");
+
+            Console.WriteLine(r1 + " + " + r2 + " = " + (r1 + r2));
 
             //Пауза
             Console.WriteLine("Press any key...");
