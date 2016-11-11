@@ -71,6 +71,13 @@ namespace RationalNumber
                 down = in_down;
             }
 
+            /// <summary>
+            /// Расчет наименьшего общего делителя для двух дробей с одинаковым знаменателем
+            /// </summary>
+            /// <param name="in_up1">числитель 1</param>
+            /// <param name="in_up2">числитель 2</param>
+            /// <param name="in_down">знаменатель</param>
+            /// <returns>наименьший общий делитель</returns>
             private int Nod(int in_up1, int in_up2, int in_down)
             { 
                 int result = 1;
@@ -82,9 +89,15 @@ namespace RationalNumber
                 return (result);
             }
 
-            private int Nod(int in_up1, int in_down)
+            /// <summary>
+            /// Расчет наименьшего общего делителя для дроби
+            /// </summary>
+            /// <param name="in_up">числитель</param>
+            /// <param name="in_down">знаменатель</param>
+            /// <returns>наименьший общий делитель</returns>
+            private int Nod(int in_up, int in_down)
             {
-                return (Nod(in_up1, in_up1, in_down));
+                return (Nod(in_up, in_up, in_down));
             }
 
             public Rational Add(Rational in_r)
